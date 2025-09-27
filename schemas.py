@@ -24,8 +24,12 @@ class AnswerQuestion(BaseModel):
 
 
 class ReviseAnswer(AnswerQuestion):
-    """Revise your original answer to your question."""
+    """
+    Pydantic model for revising an answer to a question.
 
+    Inherits from AnswerQuestion, and adds a list of references (citations)
+    that support or motivate the updated answer.
+    """
     references: List[str] = Field(
-        description="Citations motivating your updated answer."
+        description="Citations (as URLs or references) that support your revised answer."
     )
