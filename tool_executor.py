@@ -1,3 +1,5 @@
+from typing import Any
+
 # Load environment variables from a .env file
 from dotenv import load_dotenv
 
@@ -30,7 +32,7 @@ def run_queries(search_queries: list[str], **kwargs) -> Any:
         The results from the TavilySearch batch query.
     """
     # NOTE: There is a typo in 'bacth' - should be 'batch' if using TavilySearch API.
-    return tavily_tool.bacth([{"query": query} for query in search_queries])
+    return tavily_tool.batch([{"query": query} for query in search_queries])
 
 # Define a ToolNode that can execute tools for answering and revising questions.
 # Each tool is wrapped as a StructuredTool for structured input/output.
@@ -38,11 +40,11 @@ execute_tools = ToolNode(
     [
         StructuredTool.from_function(
             func=run_queries,
-            name="AnswerQuestion.__name__"  # Uses the name of the AnswerQuestion schema
+            name=AnswerQuestion.__name__  # Uses the name of the AnswerQuestion schema
         ),
         StructuredTool.from_function(
             func=run_queries,
-            name="ReviseAnswer.__name__"    # Uses the name of the ReviseAnswer schema
+            name=ReviseAnswer.__name__    # Uses the name of the ReviseAnswer schema
         ),
     ]
 )
