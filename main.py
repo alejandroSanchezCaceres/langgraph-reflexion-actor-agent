@@ -39,12 +39,15 @@ builder.add_conditional_edges(
 builder.set_entry_point("responder")
 graph = builder.compile()
 print(graph.get_graph().draw_mermaid())
-graph.get_graph().print_ascii()
+#graph.get_graph().print_ascii()
 
 if __name__ == "__main__":
     print("Hello, Replexion Agent!")
+    # res = graph.invoke(
+    #     "Write about AI-Powered SOC / autonomous soc  problem domain, list startups that do that and raised capital."
+    # )
     res = graph.invoke(
-        "Write about AI-Powered SOC / autonomous soc  problem domain, list startups that do that and raised capital."
+        "Escribe acerca de el mercado de aceites escenciales para aromatizar negocios en México ¿Cuáles son los aromas más populares? ¿Cuáles son las marcas más importantes?"
     )
     print(res[-1].tool_calls[0]["args"]["answer"])
-    print(res)
+    #print(res)

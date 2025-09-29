@@ -45,7 +45,7 @@ actor_prompt_template = ChatPromptTemplate.from_messages(
 
 # Prompt template for the first responder, instructing to provide a detailed answer
 first_responder_prompt_template = actor_prompt_template.partial(
-    first_instruction="Provide a detailed ~250 word answer."
+    first_instruction="Provide a detailed ~1000 word answer."
 )
 
 # Chain for the first responder: prompt -> LLM with tool binding
@@ -60,7 +60,7 @@ revise_instructions = """Revise your previous answer using the new information.
         - Add a "References" section to the bottom of your answer (which does not count towards the word limit). In form of:
             - [1] https://example.com
             - [2] https://example.com
-    - You should use the previous critique to remove superfluous information from your answer and make SURE it is not more than 250 words.
+    - You should use the previous critique to remove superfluous information from your answer and make SURE it is not more than 500 words.
 """
 
 # Chain for the revisor: prompt with revision instructions -> LLM with tool binding
