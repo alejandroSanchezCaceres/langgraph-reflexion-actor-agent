@@ -1,5 +1,7 @@
 from dotenv import load_dotenv
 
+from logger import log_info, log_success, log_error, log_warning, log_header
+
 load_dotenv()
 
 from typing import List
@@ -38,16 +40,21 @@ builder.add_conditional_edges(
 
 builder.set_entry_point("responder")
 graph = builder.compile()
-print(graph.get_graph().draw_mermaid())
+#print(graph.get_graph().draw_mermaid())
 #graph.get_graph().print_ascii()
 
 if __name__ == "__main__":
-    print("Hello, Replexion Agent!")
-    # res = graph.invoke(
-    #     "Write about AI-Powered SOC / autonomous soc  problem domain, list startups that do that and raised capital."
-    # )
+    #query = "Investiga acerca de la industria de telecomunicaciones en México y la reglementación en el sector"
+    query = "Investiga las mejores prácticas para gestionar los domicilios de instalación desde el proceso de ventas hasta el de instalación en una empresa de telecomunicaciones que ofrece servicios de internet?"
+    log_header("---🤖 Sistema de Agentes IA de Investigación Procesando...")
+    log_info(f"---🤖 Agente IA Investigando --> {query}")
+
     res = graph.invoke(
-        "Escribe acerca de el mercado de aceites escenciales para aromatizar negocios en México ¿Cuáles son los aromas más populares? ¿Cuáles son las marcas más importantes?"
+        query
     )
-    print(res[-1].tool_calls[0]["args"]["answer"])
-    #print(res)
+    log_success("---🤖 Agente IA --> Aquí está la investigación\n")
+    log_info(res[-1].tool_calls[0]["args"]["answer"])
+    #log_info("Referencias:")
+    for i, ref in enumerate(res[-1].tool_calls[0]["args"]["references"], 1):
+        log_info(f"[{i}]. {ref}")
+    #    log_info(f"{i}. {ref}")
