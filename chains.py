@@ -16,12 +16,9 @@ from langchain_core.prompts import (
 from langchain_openai import ChatOpenAI  # For OpenAI chat model integration
 
 from schemas import AnswerQuestion, ReviseAnswer  # Import custom Pydantic schemas
-
-
-
+import os
 
 # Initialize the language model with a specific model name
-import os
 llm = ChatOpenAI(model=os.getenv("OPENAI_MODEL", "gpt-5-nano"))
 
 # Output parsers for handling LLM tool outputs
@@ -58,10 +55,10 @@ first_responder = first_responder_prompt_template | llm.bind_tools(
 )
 
 # Instructions for revising an answer, including requirements for citations and references
-revise_instructions = """1. Revise your previous answer using the new information.
-        2. You should use the previous critique to add important information to your answer.
-        3. You MUST include numerical citations in your revised answer to ensure it can be verified.
-        4. You should use the previous critique to remove superfluous information from your answer and make SURE it is not more than the word limit of 500 words.
+revise_instructions = """Revise your previous answer using the new information.
+        - You should use the previous critique to add important information to your answer.
+        - You MUST include numerical citations in your revised answer to ensure it can be verified.
+        - You should use the previous critique to remove superfluous information from your answer and make SURE it is not more than 500 words.
 """
 # 
 # Chain for the revisor: prompt with revision instructions -> LLM with tool binding

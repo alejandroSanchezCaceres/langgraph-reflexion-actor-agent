@@ -14,7 +14,7 @@ class Reflection(BaseModel):
 
 # Define a Pydantic model for answering a question and providing a reflection
 class AnswerQuestion(BaseModel):
-    # The main answer to the question, expected to be a detailed response (~250 words)
+    # The main answer to the question, expected to be a detailed response (~500 words)
     answer: str = Field(description="~500 word detailed answer to the question.")
     # A reflection on the answer, using the Reflection model to critique the response
     reflection: Reflection = Field(description="Reflection on the answer")
